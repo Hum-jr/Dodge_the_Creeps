@@ -38,7 +38,7 @@ public partial class Hud : CanvasLayer
 		message.Show();
 		
 		await ToSignal(GetTree().CreateTimer(1.0), SceneTreeTimer.SignalName.Timeout);
-		GetNode<Button>("StartButton");
+		GetNode<Button>("StartButton").Show();
 	}
 
 	public void UpdateScore(int score)

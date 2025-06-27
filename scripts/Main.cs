@@ -23,13 +23,17 @@ public partial class Main : Node
 		GetNode<Timer>("MobTimer").Stop();
 		GetNode<Timer>("ScoreTimer").Stop();
 		
-		GetNode<Hud>("HUD").UpdateScore(_score);
+		GetNode<Hud>("HUD").ShowGameOver();
+		
+		GetNode<AudioStreamPlayer2D>("Music").Stop();
+		GetNode<AudioStreamPlayer>("DeathSound").Play();
 
 	}
 
 	private void _new_game()
 	{
 		_score = 0;
+		GetNode<AudioStreamPlayer2D>("Music").Play();
 		
 		var player = GetNode<Player>("Player");
 		var startPosition = GetNode<Marker2D>("StartPosition");
