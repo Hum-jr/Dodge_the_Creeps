@@ -49,13 +49,14 @@ radius = 50.0
 height = 134.0
 
 [node name="Mob" type="RigidBody2D"]
+collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_ebxvl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wpivu")
 animation = &"walk"
-frame_progress = 0.49698
+frame_progress = 0.533787
 speed_scale = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
