@@ -11,7 +11,6 @@ public partial class Main : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_new_game();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,6 +22,8 @@ public partial class Main : Node
 	{
 		GetNode<Timer>("MobTimer").Stop();
 		GetNode<Timer>("ScoreTimer").Stop();
+		
+		GetNode<Hud>("HUD").UpdateScore(_score);
 
 	}
 
@@ -35,11 +36,19 @@ public partial class Main : Node
 		player.Start(startPosition.Position);
 		
 		GetNode<Timer>("StartTimer").Start();
+		
+		var hud = GetNode<Hud>("HUD");
+		hud.UpdateScore(_score);
+		hud.showMessage("Get Ready!");
+		
+		GetTree().CallGroup("mobs", Node.MethodName.QueueFree);
+
 	}
 
 	private void _on_score_timer_timeout()
 	{
 		_score++;
+		GetNode<Hud>("HUD").UpdateScore(_score);
 	}
 
 	private void _on_start_timer_timeout()
@@ -54,7 +63,7 @@ public partial class Main : Node
 		var mobSpawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
 		mobSpawnLocation.ProgressRatio = GD.Randf();
 		
-		float direction = mobSpawnLocation.Rotation + Mathf.Pi / 2;
+		var direction = mobSpawnLocation.Rotation + Mathf.Pi / 2;
 
 		
 		mob.Position = mobSpawnLocation.Position;
